@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "db": "docker-compose -f docker-compose.db.yml up -d",
     "dev": "ts-node-dev -r dotenv/config ./src/index.ts",
     "docker:build": "docker build -t power-api .",
+    "docker:start": "docker-compose up -d",
     "generate": "./node_modules/.bin/prisma generate",
     "prisma": "prisma migrate dev --preview-feature",
     "seed": "ts-node-dev -r dotenv/config migration/seed",
