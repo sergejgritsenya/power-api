@@ -11,3 +11,14 @@ services:
       POSTGRES_USER:
       POSTGRES_PASSWORD:
       POSTGRES_DB:
+  power-api:
+    image: "power-api"
+    ports:
+      - "3088:3088"
+    environment:
+      POSTGRES_URL:
+      S3_KEY:
+      S3_SECRET:
+      S3_IMAGES_BUCKET:
+      JWT_SECRET_ADMIN:
+      JWT_SECRET_ADMIN_REFRESH:
