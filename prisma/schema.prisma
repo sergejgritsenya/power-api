@@ -1,0 +1,84 @@
+generator prisma {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Admin {
+  id       String         @default(cuid()) @id
+  login    String         @unique
+  email    String         @unique
+  is_super Boolean        @default(false)
+  password AdminPassword?
+  salt     AdminSalt?
+}
+
+model AdminPassword {
+  id       String @default(cuid()) @id
+  password String
+  admin_id String
+  admin    Admin  @relation(fields: [admin_id], references: [id])
+}
+
+model AdminSalt {
+  id       String @default(cuid()) @id
+  salt     String
+  admin_id String
+  admin    Admin  @relation(fields: [admin_id], references: [id])
+}
+
+model News {
+  id            String      @default(cuid()) @id
+  title         String
+  logo          String?
+  publish       Boolean     @default(false)
+  text          String
+  created_at    DateTime    @default(now())
+  tournament_id String?
+  tournament    Tournament? @relation(fields: [tournament_id], references: [id])
+}
+
+model Shop {
+  id          String      @default(cuid()) @id
+  name        String
+  price       String
+  description String
+  created_at  DateTime    @default(now())
+  logo        String?
+  images      ShopImage[]
+}
+
+model ShopImage {
+  id      String @default(cuid()) @id
+  url     String
+  shop_id String
+  shop    Shop   @relation(fields: [shop_id], references: [id])
+}
+
+model Tournament {
+  id          String            @default(cuid()) @id
+  name        String
+  logo        String?
+  description String
+  created_at  DateTime          @default(now())
+  videos      TournamentVideo[]
+  images      TournamentImage[]
+  news        News[]
+}
+
+model TournamentImage {
+  id            String     @default(cuid()) @id
+  url           String
+  tournament_id String
+  tournament    Tournament @relation(fields: [tournament_id], references: [id])
+}
+
+model TournamentVideo {
+  id            String     @default(cuid()) @id
+  url           String
+  tournament_id String
+  tournament    Tournament @relation(fields: [tournament_id], references: [id])
+}

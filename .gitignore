@@ -1,0 +1,9 @@
+npm-debug.log*
+yarn-error.log*
+
+node_modules
+dist
+.env
+prisma/migrations
+docker-compose.yml
+docker-compose.db.yml
