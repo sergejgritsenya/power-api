@@ -12,6 +12,7 @@ RUN yarn install --production=false --ignore-scripts
 RUN yarn global add @prisma/cli
 
 COPY ./src /app/src
+COPY ./migration /app/migration
 
 RUN NODE_ENV=development prisma generate
 RUN yarn build

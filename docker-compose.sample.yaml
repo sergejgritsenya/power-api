@@ -1,4 +1,4 @@
-version: "2"
+version: "3.7"
 
 services:
   db:
@@ -8,17 +8,17 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
-      POSTGRES_DB:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpassword
+      POSTGRES_DB: pgdb
   power-api:
     image: "power-api"
     ports:
       - "3088:3088"
     environment:
-      POSTGRES_URL:
-      S3_KEY:
-      S3_SECRET:
-      S3_IMAGES_BUCKET:
-      JWT_SECRET_ADMIN:
-      JWT_SECRET_ADMIN_REFRESH:
+      POSTGRES_URL: postgresql://pguser:pgpassword@db:5432/pgdb?schema=public
+      S3_KEY: key
+      S3_SECRET: secret
+      S3_IMAGES_BUCKET: bucket
+      JWT_SECRET_ADMIN: jwtadmin
+      JWT_SECRET_ADMIN_REFRESH: jwtadminrefresh
