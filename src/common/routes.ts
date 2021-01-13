@@ -25,40 +25,7 @@ export const admin_routes = {
   get: `${admin_root_routes.root}/get`,
   logout: `${admin_root_routes.root}/logout`,
 }
-export const tournament_root_routes = {
-  list: `${control_routes.tournament}/list`,
-  create: `${control_routes.tournament}/create`,
-  delete: `${control_routes.tournament}/delete`,
-  root: `${control_routes.tournament}/:tournament_id`,
-}
-export const tournament_routes = {
-  get: `${tournament_root_routes.root}/get`,
-  upload: `${tournament_root_routes.root}/upload`,
-  deleteLogo: `${tournament_root_routes.root}/deleteLogo`,
-  update: `${tournament_root_routes.root}/update`,
-  video: `${tournament_root_routes.root}/video`,
-  image: `${tournament_root_routes.root}/image`,
-}
-export const tournament_video_routes = {
-  create: `${tournament_routes.video}/create`,
-  delete: `${tournament_routes.video}/delete`,
-}
-export const tournament_image_routes = {
-  upload: `${tournament_routes.image}/upload`,
-  delete: `${tournament_routes.image}/delete`,
-}
-export const news_root_routes = {
-  list: `${control_routes.news}/list`,
-  create: `${control_routes.news}/create`,
-  delete: `${control_routes.news}/delete`,
-  root: `${control_routes.news}/:news_id`,
-}
-export const news_routes = {
-  get: `${news_root_routes.root}/get`,
-  upload: `${news_root_routes.root}/upload`,
-  deleteLogo: `${news_root_routes.root}/deleteLogo`,
-  update: `${news_root_routes.root}/update`,
-}
+
 export const shop_root_routes = {
   list: `${control_routes.shop}/list`,
   create: `${control_routes.shop}/create`,
@@ -75,15 +42,4 @@ export const shop_routes = {
 export const shop_image_routes = {
   upload: `${shop_routes.image}/upload`,
   delete: `${shop_routes.image}/delete`,
-}
-
-export const frontRoute = (route: string, args: Record<string, any>): string => {
-  const arr = route.split("/")
-  const res_arr = arr.map((chunk) => {
-    if (chunk.startsWith(":")) {
-      return args[chunk.slice(1)]
-    }
-    return chunk
-  })
-  return res_arr.join("/")
 }

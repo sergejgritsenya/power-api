@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify"
-import { tournament_video_routes } from "../common/routes"
+import { tournament_routes } from "../common"
 import { ApiAuthRouter } from "../server/context"
 import { TournamentService } from "./tournament-service"
 import { TTournamentVideoCreateProps } from "./tournament-types"
@@ -8,14 +8,13 @@ import { TTournamentVideoCreateProps } from "./tournament-types"
 export class TournamentVideoRouter {
   video_router = new ApiAuthRouter()
   constructor(@inject(TournamentService) private readonly tournamentService: TournamentService) {
-    this.video_router.post(tournament_video_routes.create, async (ctx) => {
+    this.video_router.post(tournament_routes.video, async (ctx) => {
       const { tournament_id } = ctx.params
       const data = ctx.request.body as TTournamentVideoCreateProps
       ctx.body = await this.tournamentService.createVideo(tournament_id, data)
     })
-    this.video_router.post(tournament_video_routes.delete, async (ctx) => {
-      const { tournament_id } = ctx.params
-      const { video_id } = ctx.request.body as { video_id: string }
+    this.video_router.delete(tournament_routes.deleteVideo, async (ctx) => {
+      const { tournament_id, video_id } = ctx.params
       ctx.body = await this.tournamentService.deleteVideo(tournament_id, video_id)
     })
   }

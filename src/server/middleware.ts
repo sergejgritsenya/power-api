@@ -7,7 +7,7 @@ import { api_env } from "./env"
 export const cors: Middleware = async (ctx, next) => {
   const { res } = ctx
   res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST")
+  res.setHeader("Access-Control-Allow-Methods", "*")
   res.setHeader("Access-Control-Allow-Headers", "*")
   await next()
 }
