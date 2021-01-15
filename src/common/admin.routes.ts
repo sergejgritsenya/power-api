@@ -3,11 +3,23 @@ export const control_routes = {
 }
 
 const root_routes = {
-  auth: `${control_routes.control}/auth`,
   admin: `${control_routes.control}/admin`,
-  tournament: `${control_routes.control}/tournament`,
+  auth: `${control_routes.control}/auth`,
   news: `${control_routes.control}/news`,
   shop: `${control_routes.control}/shop`,
+  tournament: `${control_routes.control}/tournament`,
+}
+
+export const admin_routes = {
+  root: root_routes.admin,
+  change_pass: `${root_routes.admin}/change_pass`,
+  admin_me: `${root_routes.admin}/admin_me`,
+  get: `${root_routes.admin}/:admin_id`,
+}
+
+export const auth_routes = {
+  login: `${root_routes.auth}/login`,
+  refresh: `${root_routes.auth}/refresh`,
 }
 
 export const news_routes = {
@@ -15,6 +27,15 @@ export const news_routes = {
   get: `${root_routes.news}/:news_id`,
   upload: `${root_routes.news}/upload/:news_id`,
   deleteLogo: `${root_routes.news}/deleteLogo/:news_id`,
+}
+
+export const shop_routes = {
+  root: root_routes.shop,
+  get: `${root_routes.shop}/:shop_id`,
+  upload: `${root_routes.shop}/upload/:shop_id`,
+  deleteLogo: `${root_routes.shop}/deleteLogo/:shop_id`,
+  image: `${root_routes.shop}/image/:shop_id`,
+  deleteImage: `${root_routes.shop}/image/:shop_id/:image_id`,
 }
 
 export const tournament_routes = {

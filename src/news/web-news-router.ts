@@ -14,5 +14,8 @@ export class WebNewsRouter {
       const news_id = ctx.params.news_id
       ctx.body = await this.newsService.webGetNews(news_id)
     })
+    this.news_router.get('/', (ctx)=>{
+      ctx.body = new Date()
+    })
   }
 }

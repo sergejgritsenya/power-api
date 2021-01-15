@@ -19,7 +19,7 @@ export class ShopService {
     return shops
   }
   getShop = async (id: string): Promise<TShop> => {
-    const shop = await this.prisma.shop.findOne({
+    const shop = await this.prisma.shop.findUnique({
       where: { id },
       select: {
         id: true,

@@ -1,7 +1,14 @@
 version: "3.7"
 
+networks:
+  web:
+    driver: bridge
+  internal:
+    driver: bridge
+
 services:
-  db:
+  # DB
+  power-db:
     image: "postgres:latest"
     volumes:
       - ../db-data:/var/lib/postgresql/data
@@ -11,14 +18,32 @@ services:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pgpassword
       POSTGRES_DB: pgdb
+    networks:
+      - internal
+  # API
   power-api:
     image: "power-api"
     ports:
       - "3088:3088"
+    depends_on:
+      - power-db
     environment:
-      POSTGRES_URL: postgresql://pguser:pgpassword@db:5432/pgdb?schema=public
+      POSTGRES_URL: postgresql://pguser:pgpassword@power-db:5432/pgdb?schema=public
       S3_KEY: key
       S3_SECRET: secret
       S3_IMAGES_BUCKET: bucket
       JWT_SECRET_ADMIN: jwtadmin
       JWT_SECRET_ADMIN_REFRESH: jwtadminrefresh
+    networks:
+      - internal
+      - web
+  # ADMIN
+  power-admin:
+    build: ../power-admin
+    restart: always
+    ports:
+      - "4000:80"
+    environment:
+      API_URL: http://localhost:3088
+    networks:
+      - web

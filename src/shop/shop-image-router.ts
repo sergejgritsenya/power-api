@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify"
-import { shop_image_routes } from "../common/routes"
+import { shop_routes } from "../common"
 import { ApiAuthRouter } from "../server/context"
 import { ShopService } from "./shop-service"
 
@@ -7,13 +7,12 @@ import { ShopService } from "./shop-service"
 export class ShopImageRouter {
   image_router = new ApiAuthRouter()
   constructor(@inject(ShopService) private readonly shopService: ShopService) {
-    this.image_router.post(shop_image_routes.upload, async (ctx) => {
+    this.image_router.get(shop_routes.image, async (ctx) => {
       const { shop_id } = ctx.params
       ctx.body = await this.shopService.uploadImage(shop_id, ctx.req)
     })
-    this.image_router.post(shop_image_routes.delete, async (ctx) => {
-      const { shop_id } = ctx.params
-      const { image_id } = ctx.request.body as { image_id: string }
+    this.image_router.delete(shop_routes.deleteImage, async (ctx) => {
+      const { shop_id, image_id } = ctx.params
       ctx.body = await this.shopService.deleteImage(shop_id, image_id)
     })
   }

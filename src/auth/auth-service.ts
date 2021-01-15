@@ -15,7 +15,7 @@ export class AuthService {
   }
   adminLogin = async (props: TAuthProps): Promise<TAuth> => {
     try {
-      const admin = await this.prisma.admin.findOne({
+      const admin = await this.prisma.admin.findUnique({
         where: { login: props.login },
         select: { id: true },
       })
@@ -23,7 +23,7 @@ export class AuthService {
         throw new Error("admin not found")
       }
       const password = await this.prisma.admin
-        .findOne({ where: { login: props.login } })
+        .findUnique({ where: { login: props.login } })
         .password({ select: { password: true } })
       if (!password) {
         throw new Error("password not found")
@@ -48,7 +48,7 @@ export class AuthService {
       if (!admin_id) {
         throw new Error("admin not found")
       }
-      const admin = await this.prisma.admin.findOne({
+      const admin = await this.prisma.admin.findUnique({
         where: { id: admin_id },
         select: { id: true },
       })

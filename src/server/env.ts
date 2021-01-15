@@ -8,10 +8,10 @@ export type TEnv = {
 }
 
 export const api_env: TEnv = {
-  PORT: 3088,
-  S3_KEY: process.env.S3_KEY || "",
-  S3_SECRET: process.env.S3_SECRET || "",
-  S3_IMAGES_BUCKET: process.env.S3_IMAGES_BUCKET || "",
-  JWT_SECRET_ADMIN: process.env.JWT_SECRET_ADMIN || "",
-  JWT_SECRET_ADMIN_REFRESH: process.env.JWT_SECRET_ADMIN_REFRESH || "",
+  PORT: 3087,
+  S3_KEY: process.env.S3_KEY || "AKIAY23V4LPEKVFR6XF5",
+  S3_SECRET: process.env.S3_SECRET || "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",
+  S3_IMAGES_BUCKET: process.env.S3_IMAGES_BUCKET || "powerasics",
+  JWT_SECRET_ADMIN: process.env.JWT_SECRET_ADMIN || "qwe",
+  JWT_SECRET_ADMIN_REFRESH: process.env.JWT_SECRET_ADMIN_REFRESH || "qwe",
 }

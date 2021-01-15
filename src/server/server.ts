@@ -1,4 +1,4 @@
-import Koa from "koa"
+import Koa  from "koa"
 import bodyParser from "koa-bodyparser"
 import { ApiDiService, TInitServerProps } from "./di"
 import { TEnv } from "./env"
@@ -13,7 +13,6 @@ const init = (props: TInitServerProps) => {
   app.use(bodyParser())
   app.on("error", koaOnError)
   app.use(props.router.routes()).use(props.router.allowedMethods())
-
   const env: TEnv = props.container.get(appSymbols.env)
   const api_port = env.PORT
   app.listen(api_port, () => console.log(`API server start on: http://localhost:${api_port}`))

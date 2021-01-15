@@ -26,7 +26,7 @@ export class TournamentService {
     return tournaments
   }
   getTournament = async (id: string): Promise<TTournament> => {
-    const tournament = await this.prisma.tournament.findOne({
+    const tournament = await this.prisma.tournament.findUnique({
       where: { id },
       select: {
         id: true,
@@ -92,6 +92,7 @@ export class TournamentService {
     tournament_id: string,
     req: IncomingMessage
   ): Promise<TTournamentImage[]> => {
+    console.log("!!!!!!!!!!!!!!!!!!!!!")
     const url = await uploadToS3(req)
     await this.prisma.tournamentImage.create({
       data: { url, tournament: { connect: { id: tournament_id } } },

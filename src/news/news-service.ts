@@ -27,7 +27,7 @@ export class NewsService {
   }
   getNews = async (id: string): Promise<TNewsAdmin> => {
     const [db_news, tournaments] = await Promise.all([
-      this.prisma.news.findOne({
+      this.prisma.news.findUnique({
         where: { id },
         select: {
           id: true,
@@ -123,7 +123,7 @@ export class NewsService {
     return news_list
   }
   webGetNews = async (id: string): Promise<TNews> => {
-    const db_news = await this.prisma.news.findOne({
+    const db_news = await this.prisma.news.findUnique({
       where: { id },
       select: {
         id: true,

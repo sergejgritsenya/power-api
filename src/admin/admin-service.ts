@@ -23,7 +23,7 @@ export class AdminService {
     })
   }
   getAdmin = async (id: string): Promise<TAdmin> => {
-    const admin = await this.prisma.admin.findOne({
+    const admin = await this.prisma.admin.findUnique({
       where: { id },
       select: { id: true, login: true, email: true, is_super: true },
     })
@@ -34,7 +34,7 @@ export class AdminService {
   }
   create = async (data: TAdminCreateProps, super_id: string): Promise<string> => {
     try {
-      const super_admin = await this.prisma.admin.findOne({ where: { id: super_id } })
+      const super_admin = await this.prisma.admin.findUnique({ where: { id: super_id } })
       if (!super_admin || !super_admin.is_super) {
         throw new Error("Forbidden")
       }
@@ -74,7 +74,7 @@ export class AdminService {
     return admin
   }
   changePassword = async (id: string, data: TAdminChangePasswordProps) => {
-    const admin = await this.prisma.admin.findOne({
+    const admin = await this.prisma.admin.findUnique({
       where: { id },
       select: { id: true },
     })
@@ -82,7 +82,7 @@ export class AdminService {
       throw new Error("Unknown admin")
     }
     const password = await this.prisma.admin
-      .findOne({ where: { id } })
+      .findUnique({ where: { id } })
       .password({ select: { password: true } })
     if (!password) {
       throw new Error("password not found")
@@ -105,8 +105,8 @@ export class AdminService {
   }
   deleteAdmin = async (id: string, super_id: string): Promise<TAdminList[]> => {
     const [super_admin, admin] = await Promise.all([
-      this.prisma.admin.findOne({ where: { id: super_id } }),
-      this.prisma.admin.findOne({ where: { id } }),
+      this.prisma.admin.findUnique({ where: { id: super_id } }),
+      this.prisma.admin.findUnique({ where: { id } }),
     ])
     if (super_admin && super_admin.is_super && admin && !admin.is_super) {
       await this.prisma.adminSalt.deleteMany({ where: { admin: { id } } })
