@@ -37,3 +37,6 @@ tsconfig.tsbuildinfo
 
 .env
 prisma/migrations/*
+
+docker-compose.yaml
+docker-compose.yml
