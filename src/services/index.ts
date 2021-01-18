@@ -1,0 +1,5 @@
+export * from "./admin.service"
+export * from "./auth.service"
+export * from "./news.service"
+export * from "./shop.service"
+export * from "./tournament.service"

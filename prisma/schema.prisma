@@ -1,6 +1,6 @@
 generator prisma {
   provider = "prisma-client-js"
-  output = "../node_modules/.prisma/client"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Admin {
-  id       String         @default(cuid()) @id
+  id       String         @id @default(cuid())
   login    String         @unique
   email    String         @unique
   is_super Boolean        @default(false)
@@ -18,21 +18,21 @@ model Admin {
 }
 
 model AdminPassword {
-  id       String @default(cuid()) @id
+  id       String @id @default(cuid())
   password String
-  admin_id String
+  admin_id String @unique
   admin    Admin  @relation(fields: [admin_id], references: [id])
 }
 
 model AdminSalt {
-  id       String @default(cuid()) @id
+  id       String @id @default(cuid())
   salt     String
-  admin_id String
+  admin_id String @unique
   admin    Admin  @relation(fields: [admin_id], references: [id])
 }
 
 model News {
-  id            String      @default(cuid()) @id
+  id            String      @id @default(cuid())
   title         String
   logo          String?
   publish       Boolean     @default(false)
@@ -43,7 +43,7 @@ model News {
 }
 
 model Shop {
-  id          String      @default(cuid()) @id
+  id          String      @id @default(cuid())
   name        String
   price       String
   description String
@@ -53,14 +53,14 @@ model Shop {
 }
 
 model ShopImage {
-  id      String @default(cuid()) @id
+  id      String @id @default(cuid())
   url     String
   shop_id String
   shop    Shop   @relation(fields: [shop_id], references: [id])
 }
 
 model Tournament {
-  id          String            @default(cuid()) @id
+  id          String            @id @default(cuid())
   name        String
   logo        String?
   description String
@@ -71,14 +71,14 @@ model Tournament {
 }
 
 model TournamentImage {
-  id            String     @default(cuid()) @id
+  id            String     @id @default(cuid())
   url           String
   tournament_id String
   tournament    Tournament @relation(fields: [tournament_id], references: [id])
 }
 
 model TournamentVideo {
-  id            String     @default(cuid()) @id
+  id            String     @id @default(cuid())
   url           String
   tournament_id String
   tournament    Tournament @relation(fields: [tournament_id], references: [id])

@@ -1,0 +1,50 @@
+version: "3.7"
+
+networks:
+  web:
+    driver: bridge
+  internal:
+    driver: bridge
+
+services:
+  # DB
+  power-db:
+    image: "postgres:latest"
+    volumes:
+      - ../db-data:/var/lib/postgresql/data
+    ports:
+      - "5430:5432"
+    environment:
+      POSTGRES_USER: power
+      POSTGRES_PASSWORD: asics
+      POSTGRES_DB: power
+    networks:
+      - internal
+  # API
+  # power-api:
+  #   image: "power-api"
+  #   ports:
+  #     - "3088:3088"
+  #   depends_on:
+  #     - power-db
+  #   environment:
+  #     POSTGRES_URL: postgresql://power:asics@db:5432/power?schema=public
+  #     S3_KEY: AKIAY23V4LPEKVFR6XF5
+  #     S3_SECRET: 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
+  #     S3_IMAGES_BUCKET: powerasics
+  #     JWT_SECRET_ADMIN: secretpoweradmin
+  #     JWT_SECRET_ADMIN_REFRESH: refreshpoweradmin
+  #   networks:
+  #     - internal
+  #     - web
+  # ADMIN
+  # power-admin:
+  #   build:
+  #     context: ../power-admin
+  #     args:
+  #       API_URL: http://localhost:3088
+  #   restart: always
+  #   ports:
+  #     - "4000:80"
+  #   networks:
+  #     - web
