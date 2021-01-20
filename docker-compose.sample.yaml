@@ -28,22 +28,28 @@ services:
     depends_on:
       - power-db
     environment:
-      POSTGRES_URL: postgresql://pguser:pgpassword@power-db:5432/pgdb?schema=public
-      S3_KEY: key
-      S3_SECRET: secret
-      S3_IMAGES_BUCKET: bucket
-      JWT_SECRET_ADMIN: jwtadmin
-      JWT_SECRET_ADMIN_REFRESH: jwtadminrefresh
+      POSTGRES_URL: postgresql://pguser:pgpassword@db:5432/pgdb?schema=public
+      S3_KEY: s3key
+      S3_SECRET: s3secret
+      S3_IMAGES_BUCKET: s3bucket
+      JWT_SECRET_ADMIN: jwtsecretadmin
+      JWT_SECRET_ADMIN_REFRESH: jwtsecretadminrefresh
     networks:
       - internal
       - web
   # ADMIN
   power-admin:
-    build: ../power-admin
+    image: "power-admin"
     restart: always
     ports:
       - "4000:80"
-    environment:
-      API_URL: http://localhost:3088
+    networks:
+      - web
+  # WEB
+  power-web:
+    image: "power-web"
+    restart: always
+    ports:
+      - "3000:80"
     networks:
       - web
