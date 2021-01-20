@@ -49,7 +49,9 @@ export class NewsRepository {
       where: { id },
       data: {
         ...data,
-        tournament: tournament_id ? { connect: { id: tournament_id } } : undefined,
+        tournament: tournament_id
+          ? { connect: { id: tournament_id } }
+          : { disconnect: true },
       },
     })
   }
