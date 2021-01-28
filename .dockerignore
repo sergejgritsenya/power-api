@@ -5,3 +5,10 @@ node_modules
 dist
 build
 .env
+Dockerfile
+docker-compose*.yaml
+docker-compose*.yml
+
+
+sample.env
+prisma/example.env
