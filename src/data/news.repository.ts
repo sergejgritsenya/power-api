@@ -45,13 +45,12 @@ export class NewsRepository {
 
   public async updateOne(input: TNewsUpdateDto): Promise<void> {
     const { id, tournament_id, ...data } = input
+
     await this.prisma.news.update({
       where: { id },
       data: {
         ...data,
-        tournament: tournament_id
-          ? { connect: { id: tournament_id } }
-          : { disconnect: true },
+        tournament: tournament_id ? { connect: { id: tournament_id } } : { disconnect: true },
       },
     })
   }

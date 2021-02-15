@@ -12,3 +12,4 @@ docker-compose*.yml
 
 sample.env
 prisma/example.env
+prisma/migrations

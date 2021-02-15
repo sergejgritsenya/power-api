@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { passwordHashing } from "../src/utils"
+import { genSaltSync, hashSync } from "bcryptjs"
 
 const prisma = new PrismaClient()
 const seed = async () => {
@@ -7,7 +7,8 @@ const seed = async () => {
     const email = "admin@admin.com"
     const login = "admin"
     const password = "admin"
-    const hash_pass = passwordHashing(password)
+    const salt = genSaltSync(16)
+    const hash = hashSync(password, salt)
     const admin = await prisma.admin.create({
       data: {
         email,
@@ -15,10 +16,10 @@ const seed = async () => {
       },
     })
     await prisma.adminSalt.create({
-      data: { salt: hash_pass.salt, admin: { connect: { id: admin.id } } },
+      data: { salt, admin: { connect: { id: admin.id } } },
     })
     await prisma.adminPassword.create({
-      data: { password: hash_pass.hash, admin: { connect: { id: admin.id } } },
+      data: { password: hash, admin: { connect: { id: admin.id } } },
     })
     console.log("Successfully created")
   } catch (e) {

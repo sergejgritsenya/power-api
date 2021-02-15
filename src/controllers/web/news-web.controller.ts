@@ -7,7 +7,7 @@ export class NewsWebController {
 
   @Get()
   public async findMany() {
-    return this.newsService.findMany()
+    return this.newsService.findMany({ publish: true })
   }
 
   @Get(":news_id")
