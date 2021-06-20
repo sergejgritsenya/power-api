@@ -18,13 +18,13 @@ export class GalleryService {
 
   public async createOne(req: IncomingMessage): Promise<string> {
     const url = await uploadToS3(req)
-    await this.repository.createOne({ url })
-    return url
+    return this.repository.createOne({ url })
   }
 
-  public async updateOne(id: string, req: IncomingMessage): Promise<void> {
+  public async updateOne(id: string, req: IncomingMessage): Promise<string> {
     const url = await uploadToS3(req)
-    return this.repository.updateOne({ id, url })
+    await this.repository.updateOne({ id, url })
+    return url
   }
 
   public async deleteOne(id: string): Promise<void> {
