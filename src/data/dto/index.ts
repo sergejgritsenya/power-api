@@ -1,6 +1,8 @@
 export * from "./admin-create.dto"
 export * from "./admin-update.dto"
 export * from "./create-media.dto"
+export * from "./gallery-create.dto"
+export * from "./gallery-update.dto"
 export * from "./news-create.dto"
 export * from "./news-list.dto"
 export * from "./news-update.dto"
@@ -9,3 +11,4 @@ export * from "./shop-create.dto"
 export * from "./shop-update.dto"
 export * from "./tournament-create.dto"
 export * from "./tournament-update.dto"
+

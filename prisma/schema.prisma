@@ -31,6 +31,12 @@ model AdminSalt {
   admin    Admin  @relation(fields: [admin_id], references: [id])
 }
 
+model Gallery {
+  id         String   @id @default(cuid())
+  url        String
+  created_at DateTime @default(now())
+}
+
 model News {
   id            String      @id @default(cuid())
   title         String
